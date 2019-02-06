@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gitJulio/mitristehistoria/issues"
   },
-  "homepage": "https://github.com/gitJulio/mitristehistoria#readme"
+  "homepage": "https://github.com/gitJulio/mitristehistoria#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
