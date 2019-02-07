@@ -26,16 +26,15 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/about', (req, res) => {
 
 
-  let view_historias = pg.db.func('public.ft_view_historias').catch(err => {
-    res.status(500).send({
-      error: err,
-      status: 500
-    }); // si existe un error lo retornamos
+app.get('/about', async (req, res) => {
+
+  let view_historias = await pg.func('public.ft_view_historias').catch(err => {
+    console.log(err);
   })
   console.log(view_historias);
+  console.log("view_historias");
   // res.render('about.hbs')
   // res.send(view_historias)
 })
