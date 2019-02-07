@@ -4,8 +4,8 @@ const app = express()
 const hbs = require('hbs');
 require('./config/config')
 require('./hbs/helpers.js')
-// const port = process.env.PORT || 5000;
-
+// const pg = require('pg')
+const pg = require('./config/ps_conection')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -27,7 +27,17 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-  res.render('about.hbs')
+
+
+  let view_historias = pg.db.func('public.ft_view_historias').catch(err => {
+    res.status(500).send({
+      error: err,
+      status: 500
+    }); // si existe un error lo retornamos
+  })
+  console.log(view_historias);
+  // res.render('about.hbs')
+  // res.send(view_historias)
 })
 
 app.post('/mensajes', function(req, res) {
