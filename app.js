@@ -1,15 +1,27 @@
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
+const hbs = require('hbs');
+require('./hbs/helpers.js')
+const port = process.env.PORT || 5000;
+var nombre = 'Julio';
 
 app.use(express.static(__dirname + '/public'))
 
-// app.get('/', (req, res) => {
-//   let salida = {
-//     "respuesta": true
-//   }
-//   res.send(salida)
-// })
+//Express HBS engine
+hbs.registerPartials(__dirname + '/views/parciales');
+app.set('view engine', 'hbs');
 
-app.listen(5000, () => {
+app.get('/', (req, res) => {
+  res.render('home.hbs', {
+    nombre: 'Julio'
+  })
+})
+
+app.get('/about', (req, res) => {
+  res.render('about.hbs')
+})
+
+
+app.listen(port, () => {
   console.log("Api Mi Triste Historia is up");
 })

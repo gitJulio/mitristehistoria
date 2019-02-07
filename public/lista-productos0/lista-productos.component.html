@@ -1,0 +1,115 @@
+<app-loading-box [hidden]="box_loading==false" class="box_lod" id="box_lod"></app-loading-box>
+<app-barra-sort (aplicarSort)="sortResultado($event)" (buscarFiltro)="FiltroBusca($event)" #sorBusqueda></app-barra-sort>
+<div>
+  <!-- <input type="search" [(ngModel)]="searchText" placeholder="Search text"> -->
+</div>
+<table class="table-hover">
+  <tbody>
+    <tr *ngFor="let item of productos | filter: textoFiltro" class="row-producto d-flex">
+      <td class="col-1 ">
+        <img [src]="item.imagen | noImage" class="thumnails-producto">
+      </td>
+      <td class="col-7">
+        <div class="row titulo">
+          <p class="titulo">{{item.descripcion}} {{item.id_proveedor}} </p>
+          <!-- <a href="" *ngIf="item.smartpage"> {{item.smartpage}} </a> -->
+        </div>
+        <div class="row part">
+          <div class="col-3">
+            <p *ngIf="item.oem_original">#OEM: {{ item.oem_original | nullOem }}</p>
+          </div>
+          <div class="col-9">
+            <p align="right" [ngClass]="{'oem-sub-si': tipo_busqueda==3, 'oem-ref': tipo_busqueda!=3}" *ngIf=" item.oem_ref">#ref {{ item.oem_ref | nullOem }}</p>
+          </div>
+        </div>
+        <div class="row atributos" *ngIf="item.atributos">
+          <div class="col-6">
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[0]['id_valor']) > -1}" *ngIf="item.atributos[0]">
+              <i class="fa fa-info-circle">
+                <div class="txtAtributo">
+                  {{item.atributos[0]['descripcion']}} {{item.atributos[0]['id_valor']}}
+                </div>
+              </i>
+            </span>
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[1]['id_valor']) > -1}" *ngIf="item.atributos[1]">
+              <i class="fa fa-info-circle">
+                <div class="txtAtributo">
+                  {{item.atributos[1]['descripcion']}} {{item.atributos[1]['id_valor']}}
+                </div>
+              </i>
+            </span>
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[2]['id_valor']) > -1}" *ngIf="item.atributos[2]">
+              <i class="fa fa-info-circle">
+                <div class="txtAtributo">
+                  {{item.atributos[2]['descripcion']}} {{item.atributos[2]['id_valor']}}
+                </div>
+              </i>
+            </span>
+          </div>
+          <div class="col-6">
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[3]['id_valor']) > -1}" *ngIf="item.atributos[3]">
+              <i class="fa fa-info-circle ">
+                <div class="txtAtributo">
+                  {{item.atributos[3]['descripcion']}} {{item.atributos[3]['id_valor']}}
+                </div>
+              </i>
+            </span>
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[4]['id_valor']) > -1}" *ngIf="item.atributos[4]">
+              <i class="fa fa-info-circle">
+                <div class="txtAtributo">
+                  {{item.atributos[4]['descripcion']}} {{item.atributos[4]['id_valor']}}
+                </div>
+              </i>
+            </span>
+            <span [ngClass]="{'oem-sub-s': text_busqueda.indexOf(item.atributos[5]['id_valor']) > -1}" *ngIf="item.atributos[5]">
+              <i class="fa fa-info-circle">
+                <div class="txtAtributo">
+                  {{item.atributos[5]['descripcion']}} {{item.atributos[5]['id_valor']}}
+                </div>
+              </i>
+            </span>
+          </div>
+        </div>
+      </td>
+      <td class="col-2 text-center">
+        <div class="row text-center">
+          <img [src]="item.imagen_marca | noImage" class="thumnails-marca">
+          <img [src]="item.imagen_calidad | noImage" class="thumnails-calidad">
+        </div>
+        <div class="row marca text-center">
+          {{item.marca}}
+          <!-- <span class="ms">{{item.idx_marca}}</span> -->
+          <!-- MARCA SECUNDARIA PEQUEÑA EN CASO DE WHI -->
+        </div>
+        <br>
+        <div class="row opciones-margin text-center">
+          <img [src]="icoRelacionados| noImage" (click)="getGruposRelacionados(item.id_grupo)" data-toggle="modal" data-target="#relacionados" title="Productos Relacionados" class="thumnails-opciones">
+          <img [src]="icoBuyerGuie | noImage" (click)="getGuiaVendedor(item.id_articulo_api,item.id_proveedor_api,item.id_marca_api,item.id_grupo_api,item.id_posicion_whi)" title="Guia del vendedor" class="thumnails-opciones" data-toggle="modal"
+            data-target="#guiaModal">
+          <img [src]="icoMenuIcon | noImage" (click)="cargarProducto(item)" title="Menu de producto" class="thumnails-opciones" data-toggle="modal" data-target="#popupProductos">
+          <!-- <img [src]="icoMenuIcon | noImage" *ngIf="item.id_proveedor==3" (click)="cargarProducto(item)" title="Menu de producto" class="thumnails-opciones" data-toggle="modal" data-target="#popupProductos"> -->
+        </div>
+      </td>
+      <td class="col-2">
+        <div class="row">
+          <div class="row text-center col-12">
+            <span class="h-45 col-12"></span>
+            <button type="button" class=" h-45 w-25 resta text-center" (click)="restar(item)"><span class="texto-suma">-</span></button>
+            <input class="form-control w-25 cant text-center" type="text" [value]="item.cantidad_p" disabled="true" #cantidad_producto>
+            <button type="button" class="h-45 w-25 suma text-center" (click)="sumar(item)"><span class="texto-suma">+</span></button>
+            <i class="fa fa-cart-plus fa-3x col-3 agregar-carrito " (click)="agregarCarrito(cantidad_producto.value,item)" data-toggle="modal" data-target="#agregarCarrito"></i>
+            <input class="form-control  col-3 text-center" type="money" [placeholder]="item.cantidad_c" [value]="item.cantidad_c" disabled="true">
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="alert alert-danger" role="alert" *ngIf="alertProductos && !bloqueo">No encontramos Productos, mejora tu busqueda para mas resultados</div>
+<app-get-guia-vendedor #guia></app-get-guia-vendedor>
+<app-get-relacionados *ngIf="proMenu==true" #rela></app-get-relacionados>
+<app-view-productos (OnClicRelacionadoB2)="ModalRelaBacktraceP()" #viewProducto></app-view-productos>
+<view-productos-whi #viewProductoWHI></view-productos-whi>
+<app-relacionados-backtrace #BactraceModal></app-relacionados-backtrace>
+<!-- <app-relacionados #prelacionados></app-relacionados> -->
+<app-agrega-carrito #boxPrecio></app-agrega-carrito>
