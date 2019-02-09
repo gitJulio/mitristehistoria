@@ -6,7 +6,7 @@ var datetime = require('node-datetime');
 var dt;
 var formattedDate;
 var misHistorias = new Array();
-var decode = require('decode-html');
+
 
 
 //**************************************************//
