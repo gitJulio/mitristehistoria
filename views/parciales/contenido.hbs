@@ -3,40 +3,41 @@
     <div id="theSidebar" class="sidebar">
       <button class="close-button fa fa-fw fa-close"></button>
       <div class="codrops-links">
-        <a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/MotionBlurEffect/" title="Previous Demo"><span>Previous Demo</span></a>
-        <a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=23872" title="Back to the article"><span>Back to the Codrops article</span></a>
+        <a class="codrops-icon codrops-icon--prev" href="/" title="Previous Demo">
+          <span>Previous Demo</span></a>
+        <a class="codrops-icon codrops-icon--drop" href="/" title="Back to the article"><span>Back to the Codrops article</span></a>
       </div>
-      <h1><span>Animated<span> Grid Layout</h1>
-      <nav class="codrops-demos">
+      <h1><span>Bienvenidos a <span> Mi Triste Historia</h1>
+      <!-- <nav class="codrops-demos">
         <a class="current-demo" href="index.html">Demo 1</a>
         <a href="index2.html">Demo 2</a>
-      </nav>
+      </nav> -->
       <div class="related">
-        <h3>Related Demos</h3>
-        <a href="http://tympanus.net/Development/BookPreview/">Book Preview</a>
-        <a href="http://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/">Thumbnail Grid</a>
-        <a href="http://tympanus.net/Development/3DGridEffect/">3D Grid Effect</a>
+        <h3>Redes Sociales</h3>
+        <a href="#">Facebook</a>
+        <a href="/">Twitter</a>
+        <!-- <a href="/">3D Grid Effect</a> -->
       </div>
     </div>
     <div id="theGrid" class="main">
       <section class="grid">
         <header class="top-bar">
-          <h2 class="top-bar__headline">Latest articles</h2>
-          <div class="filter">
+          <h2 class="top-bar__headline">Mis Historias</h2>
+          <!-- <div class="filter">
             <span>Filter by:</span>
             <span class="dropdown">Popular</span>
-          </div>
+          </div> -->
         </header>
 
         {{#each historias}}
         <a class="grid__item">
-          <h2 class="title title--preview">Julio</h2>
+          <h2 class="title title--preview">{{titulo_historia}}</h2>
           <div class="loader"></div>
           <span class="category">Stories</span>
           <div class="meta meta--preview">
-            <img class="meta__avatar" src="img/authors/1.png" alt="author01" />
+            <img class="meta__avatar" src="img/authors/9.png" alt="author01" />
             <span class="meta__date"><i class="fa fa-calendar-o"></i> {{fecha}}</span>
-            <span class="meta__reading-time"><i class="fa fa-clock-o"></i> 3 min read</span>
+            <!-- <span class="meta__reading-time"><i class="fa fa-clock-o"></i> 3 min read</span> -->
           </div>
         </a>
         {{/each}}
@@ -46,13 +47,13 @@
 
           {{#each historias}}
           <article class="content__item" id="julio">
-            <span class="category category--full">Julio</span>
-            <h2 class="title title--full">Julio</h2>
+            <span class="category category--full">#MiTristeHistoria</span>
+            <h2 class="title title--full">{{titulo_historia}}</h2>
             <div class="meta meta--full">
-              <img class="meta__avatar" src="img/authors/1.png" alt="author01" />
-              <span class="meta__author">Matthew Walters</span>
-              <span class="meta__date"><i class="fa fa-calendar-o"></i> 9 Apr</span>
-              <span class="meta__reading-time"><i class="fa fa-clock-o"></i> 3 min read</span>
+              <img class="meta__avatar" src="img/authors/9.png" alt="author01" />
+              <span class="meta__author">{{nombre_escritor}}</span>
+              <span class="meta__date"><i class="fa fa-calendar-o"></i> {{fecha}}</span>
+              <!-- <span class="meta__reading-time"><i class="fa fa-clock-o"></i> 3 min read</span> -->
             </div>
             <p>{{descripcion}} </p>
           </article>
