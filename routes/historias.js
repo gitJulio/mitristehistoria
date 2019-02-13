@@ -22,6 +22,8 @@ app.get('/', async (req, res) => {
     view_historias[i]["fecha"] = formattedDate
   }
 
+   
+
   res.render('home.hbs', {
     historias: view_historias
   })
