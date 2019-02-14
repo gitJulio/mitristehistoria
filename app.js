@@ -20,6 +20,21 @@ app.use(express.static(__dirname + '/public'))
 hbs.registerPartials(__dirname + '/views/parciales');
 app.set('view engine', 'hbs');
 
+
+hbs.registerHelper('getAnio', (like) => {
+  return new Date().getFullYear();
+});
+
+hbs.registerHelper('json', function(context) {
+  return JSON.stringify(context).replace(/"/g, '&quot;');
+});
+
+var myGreatFunction = function(someValue) {
+  // Work with that value
+  console.log(someValue);
+}
+
+
 app.listen(process.env.PORT, () => {
   console.log("Api Mi Triste Historia is up");
 })
